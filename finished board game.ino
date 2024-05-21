@@ -11,8 +11,6 @@ LiquidCrystal_I2C lcd1(0x27, 16, 2);
 
 int shock = 10;
 int btn = 4;
-int val;    // numeric variable to store sensor status
-bool turn = true; // score changer
 int way = 0; // way that the servo will turn depending on whose turn it is
 
 void setup() {
@@ -36,30 +34,12 @@ void setup() {
   MyServo.write(90);
 }
 
-void shok()
-{
-  val = digitalRead(shock); // read and assign the value of digital interface 3 to val
-
-  if (val == HIGH ) // when sensor detects a signal, the LED flashes
-  {
-    Serial.print("ouch\n");
-    delay(1000);
-  }
-  else
-  {
-    Serial.print("smooth sailin'\n");
-    delay(1000);
-  }
-}
-
 
 void rng()
 {
-
   int random = rand() % 99;
   Serial.println(random);
   lcd1.print(random);
-
 }
 
 
@@ -71,18 +51,20 @@ void servo()
   delay (1000);
 }
 
-void end() {
+
+void end() 
+{
   MyServo.write(90);
   lcd1.clear();
 }
 
 
-void loop() { // put your main code here, to run repeatedly:
+void loop() { //main code here
 
   lcd1.print("Pull the lever");
   lcd1.setCursor(0, 1);
   lcd1.print("to play!        ");
-  int random = rand() % 100;
+  int random = rand() % 100; //THE rng
   Serial.println(way);
   bool rip = false; //boolean for letting the servos move
 
@@ -90,11 +72,10 @@ void loop() { // put your main code here, to run repeatedly:
 
   // 90 mid, 0 right, 180 left
 
-  //btn pressed stuff ------------------------------------------------------
+  //btn pressed stuff ------------------------------------------------------V
 
   if (digitalRead(btn) == HIGH)
   {
-
     lcd1.clear();
     Serial.println(random);
 
@@ -103,7 +84,6 @@ void loop() { // put your main code here, to run repeatedly:
       int load = rand() % 100;
       lcd1.print(load);
       random % load;
-
     }
 
     lcd1.clear();
@@ -111,21 +91,18 @@ void loop() { // put your main code here, to run repeatedly:
     lcd1.print(random);
     rip = true;
   }
-  //servo moving stuff ---------------------------------------------------------------------
+  //servo moving stuff ---------------------------------------------------------------------V
   while (rip == true)
   {
     if (random <= 20)
     {
-
       delay(2000);
+      
       if (digitalRead(shock) == HIGH)
       {
-        Serial.println(shock);
         MyServo.write(way);
         servo();
       }
-
-
       end();
       rip = false;
     }
@@ -134,7 +111,6 @@ void loop() { // put your main code here, to run repeatedly:
     {
       for (int t = 0; t < 1; t++)
       {
-
         servo();
       }
       rip = false;
@@ -146,7 +122,6 @@ void loop() { // put your main code here, to run repeatedly:
 
       for (int t = 0; t < 2; t++)
       {
-
         servo();
       }
       rip = false;
@@ -168,7 +143,6 @@ void loop() { // put your main code here, to run repeatedly:
 
       for (int t = 0; t < 4; t++)
       {
-
         servo();
       }
       rip = false;
@@ -180,7 +154,7 @@ void loop() { // put your main code here, to run repeatedly:
       MyServo.write(90);
     }
 
-
+    //turn changer -----V
     if (way == 0) {
       way = 180;
     }
