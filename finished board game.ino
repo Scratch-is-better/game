@@ -35,14 +35,6 @@ void setup() {
 }
 
 
-void rng()
-{
-  int random = rand() % 99;
-  Serial.println(random);
-  lcd1.print(random);
-}
-
-
 void servo()
 {
   MyServo.write(way);
