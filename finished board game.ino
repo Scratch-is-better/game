@@ -12,6 +12,7 @@ LiquidCrystal_I2C lcd1(0x27, 16, 2);
 int shock = 10;
 int btn = 4;
 int way = 0; // way that the servo will turn depending on whose turn it is
+bool rip = false; //boolean for letting the servos move
 
 void setup() {
   // put your setup code here, to run once:
@@ -32,6 +33,7 @@ void setup() {
   delay(2000);
   lcd1.clear();
   MyServo.write(90);
+  
 }
 
 
@@ -46,6 +48,7 @@ void servo()
 
 void end() 
 {
+  rip = false;
   MyServo.write(90);
   lcd1.clear();
 }
@@ -58,7 +61,6 @@ void loop() { //main code here
   lcd1.print("to play!        ");
   int random = rand() % 100; //THE rng
   Serial.println(way);
-  bool rip = false; //boolean for letting the servos move
 
 
 
@@ -96,7 +98,7 @@ void loop() { //main code here
         servo();
       }
       end();
-      rip = false;
+     
     }
 
     else if ((random >= 21) && (random <= 65))
@@ -105,7 +107,7 @@ void loop() { //main code here
       {
         servo();
       }
-      rip = false;
+     
       end();
     }
 
@@ -116,7 +118,7 @@ void loop() { //main code here
       {
         servo();
       }
-      rip = false;
+    
       end();
     }
 
@@ -127,7 +129,7 @@ void loop() { //main code here
 
         servo();
       }
-      rip = false;
+     
       end();
     }
 
@@ -137,13 +139,13 @@ void loop() { //main code here
       {
         servo();
       }
-      rip = false;
+      
       end();
     }
 
     else
     {
-      MyServo.write(90);
+      end();
     }
 
     //turn changer -----V
